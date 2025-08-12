@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pundu’s Story | BridgeSign Enterprises</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f9f9f9;
+    color: #222;
+  }
+  header {
+    background: #004d99;
+    color: white;
+    padding: 1.5rem;
+    position: relative;
+    text-align: center;
+  }
+  header h1 {
+    margin: 0;
+  }
+  .back-button {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    background: #ffcc00;
+    color: #004d99;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  .back-button:hover {
+    background: #e6b800;
+  }
+  main {
+    max-width: 900px;
+    margin: 2rem auto;
+    background: white;
+    padding: 2rem;
+    box-shadow: 0 0 12px rgba(0,0,0,0.1);
+  }
+  h2 {
+    color: #004d99;
+  }
+  p {
+    line-height: 1.5;
+  }
+  .star-rating {
+    display: flex;
+    flex-direction: row-reverse;
+    font-size: 2rem;
+    justify-content: flex-end;
+  }
+  .star-rating input {
+    display: none;
+  }
+  .star-rating label {
+    color: #ccc;
+    cursor: pointer;
+  }
+  .star-rating input:checked ~ label {
+    color: #ffcc00;
+  }
+  .star-rating label:hover,
+  .star-rating label:hover ~ label {
+    color: #ffcc00;
+  }
+  #reviews {
+    margin-top: 2rem;
+  }
+  .review {
+    border-top: 1px solid #ddd;
+    padding: 0.8rem 0;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Pundu’s Story</h1>
+  <a href="index.html" class="back-button">Back to Home</a>
+</header>
+
+<main>
+  <h2>Pundu’s Triumph Over Silence</h2>
+  <p>Pundu was born deaf and faced many challenges from the very beginning. At school, two boys named Bandu and Sammu bullied him relentlessly, making his days lonely and difficult. But Pundu never let their cruelty define him or his future.</p>
+  <p>His mother, Kavya, was his guiding light. She patiently taught him sign language and always encouraged him to believe in himself. With her unwavering support, Pundu learned to communicate confidently and discovered his own unique strengths.</p>
+  <p>He developed a talent for storytelling and artistry, using visuals to express himself in ways words never could. Over time, Pundu’s passion and determination inspired everyone around him.</p>
+  <p>Thanks to his creativity and courage, Pundu rose above the challenges to become a beloved figure worldwide. He uses his voice to raise awareness about the deaf community and to inspire others to embrace their differences.</p>
+  <p>Pundu’s journey from being bullied to becoming a symbol of hope reminds us all that true strength comes from within and that no obstacle is too great to overcome.</p>
+
+  <h3>Leave a Review</h3>
+  <form id="reviewForm">
+    <div class="star-rating">
+      <input type="radio" id="5stars" name="rating" value="5"><label for="5stars">★</label>
+      <input type="radio" id="4stars" name="rating" value="4"><label for="4stars">★</label>
+      <input type="radio" id="3stars" name="rating" value="3"><label for="3stars">★</label>
+      <input type="radio" id="2stars" name="rating" value="2"><label for="2stars">★</label>
+      <input type="radio" id="1star" name="rating" value="1"><label for="1star">★</label>
+    </div>
+    <textarea id="reviewText" rows="3" style="width:100%;margin-top:10px;" placeholder="Write your review here..." required></textarea><br>
+    <button type="submit" style="margin-top:10px;padding:10px 15px;background:#0066cc;color:white;border:none;border-radius:4px;">Submit Review</button>
+  </form>
+
+  <div id="reviews">
+    <h3>What Others Say</h3>
+    <div id="reviewList"></div>
+  </div>
+</main>
+
+<footer style="background:#004d99;color:white;text-align:center;padding:1rem;margin-top:2rem;">
+  <p>&copy; 2025 BridgeSign Enterprises. All rights reserved.</p>
+</footer>
+
+<script>
+  const form = document.getElementById('reviewForm');
+  const reviewList = document.getElementById('reviewList');
+
+  function loadReviews() {
+    const reviews = JSON.parse(localStorage.getItem('punduReviews') || '[]');
+    reviewList.innerHTML = '';
+    reviews.forEach(r => {
+      const div = document.createElement('div');
+      div.className = 'review';
+      div.innerHTML = `<strong>${'★'.repeat(r.rating)}</strong><p>${r.text}</p>`;
+      reviewList.appendChild(div);
+    });
+  }
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const rating = document.querySelector('input[name="rating"]:checked')?.value;
+    const text = document.getElementById('reviewText').value.trim();
+    if (!rating || !text) {
+      alert('Please select a star rating and write a review.');
+      return;
+    }
+    const reviews = JSON.parse(localStorage.getItem('punduReviews') || '[]');
+    reviews.push({ rating: parseInt(rating), text });
+    localStorage.setItem('punduReviews', JSON.stringify(reviews));
+    form.reset();
+    loadReviews();
+  });
+
+  loadReviews();
+</script>
+
+<!-- Tawk.to Chat Script -->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/689ab220cb88dd19275a6fd2/1j2e4fkd4';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+
+</body>
+</html>
