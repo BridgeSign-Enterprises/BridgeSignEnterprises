@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Volunteer with Us | BridgeSign Enterprises</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f9f9f9;
+    margin: 0;
+    color: #222;
+  }
+  header {
+    background: #004d99;
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+  }
+  header h1 {
+    margin: 0;
+  }
+  main {
+    max-width: 600px;
+    margin: 2rem auto;
+    background: white;
+    padding: 2rem;
+    box-shadow: 0 0 12px rgba(0,0,0,0.1);
+    border-radius: 8px;
+  }
+  label {
+    display: block;
+    margin-top: 1rem;
+    font-weight: bold;
+  }
+  input, select {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.3rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  button {
+    margin-top: 1.5rem;
+    padding: 0.75rem 1.2rem;
+    background: #0066cc;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  button:hover {
+    background: #0052a3;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Volunteer with BridgeSign Enterprises</h1>
+</header>
+
+<main>
+  <form id="volunteerForm">
+    <label for="name">Full Name</label>
+    <input type="text" id="name" name="name" placeholder="Your Name" required>
+
+    <label for="state">State</label>
+    <input type="text" id="state" name="state" placeholder="Your State" required>
+
+    <label for="phone">Phone Number</label>
+    <input type="tel" id="phone" name="phone" placeholder="e.g. +91 9876543210" required>
+
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" placeholder="you@example.com" required>
+
+    <label for="primaryJob">Primary Job Preference</label>
+    <select id="primaryJob" name="primaryJob" required>
+      <option value="">--Select a Job--</option>
+      <option value="Event Coordinator">Event Coordinator</option>
+      <option value="Sign Language Interpreter">Sign Language Interpreter</option>
+      <option value="Fundraising Volunteer">Fundraising Volunteer</option>
+      <option value="Outreach & Awareness">Outreach & Awareness</option>
+      <option value="Technical Support">Technical Support</option>
+    </select>
+
+    <label for="secondaryJob">Secondary Job Preference</label>
+    <select id="secondaryJob" name="secondaryJob">
+      <option value="">--Select a Job--</option>
+      <option value="Event Coordinator">Event Coordinator</option>
+      <option value="Sign Language Interpreter">Sign Language Interpreter</option>
+      <option value="Fundraising Volunteer">Fundraising Volunteer</option>
+      <option value="Outreach & Awareness">Outreach & Awareness</option>
+      <option value="Technical Support">Technical Support</option>
+    </select>
+
+    <button type="submit">Submit</button>
+  </form>
+</main>
+
+<script>
+  document.getElementById('volunteerForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    alert('Thank you for volunteering! We appreciate your support.');
+    window.location.href = 'index.html';
+  });
+</script>
+
+</body>
+</html>
