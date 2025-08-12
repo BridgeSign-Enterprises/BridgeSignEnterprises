@@ -15,7 +15,7 @@
     background-color: #004d99;
     color: white;
     padding: 1.5rem 2rem;
-    position: relative; /* allows positioning of FAQ button */
+    position: relative;
     text-align: center;
   }
   header h1 {
@@ -27,18 +27,21 @@
     margin-top: 0.3rem;
     font-size: 1.2rem;
   }
-  .faq-button {
+  .top-buttons {
     position: absolute;
     top: 1rem;
     right: 1.5rem;
+  }
+  .top-buttons a {
     background-color: #ffcc00;
     color: #004d99;
     padding: 0.5rem 1rem;
     border-radius: 4px;
     font-weight: bold;
     text-decoration: none;
+    margin-left: 0.5rem;
   }
-  .faq-button:hover {
+  .top-buttons a:hover {
     background-color: #e6b800;
   }
   nav {
@@ -96,10 +99,6 @@
     padding: 1rem 2rem;
     font-size: 0.9rem;
   }
-  a:focus {
-    outline: 3px solid #ffcc00;
-    outline-offset: 2px;
-  }
 </style>
 </head>
 <body>
@@ -107,7 +106,10 @@
 <header>
   <h1>BridgeSign Enterprises</h1>
   <p>Bridging Communities. Breaking Barriers.</p>
-  <a href="faq.html" class="faq-button">FAQ</a>
+  <div class="top-buttons">
+    <a href="faq.html">FAQ</a>
+    <a href="stories.html">Stories & Reviews</a>
+  </div>
 </header>
 
 <nav>
