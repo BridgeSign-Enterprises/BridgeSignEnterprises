@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pundu’s Story | BridgeSign Enterprises</title>
+<title>Stories & Reviews | BridgeSign Enterprises</title>
 <style>
   body {
     font-family: Arial, sans-serif;
@@ -18,9 +18,7 @@
     position: relative;
     text-align: center;
   }
-  header h1 {
-    margin: 0;
-  }
+  header h1 { margin: 0; }
   .back-button {
     position: absolute;
     top: 1rem;
@@ -32,9 +30,7 @@
     text-decoration: none;
     font-weight: bold;
   }
-  .back-button:hover {
-    background: #e6b800;
-  }
+  .back-button:hover { background: #e6b800; }
   main {
     max-width: 900px;
     margin: 2rem auto;
@@ -42,45 +38,46 @@
     padding: 2rem;
     box-shadow: 0 0 12px rgba(0,0,0,0.1);
   }
-  h2 {
-    color: #004d99;
-  }
-  p {
-    line-height: 1.5;
-  }
+  h2 { color: #004d99; }
   .star-rating {
     display: flex;
     flex-direction: row-reverse;
     font-size: 2rem;
     justify-content: flex-end;
   }
-  .star-rating input {
-    display: none;
-  }
+  .star-rating input { display: none; }
   .star-rating label {
-    color: #ccc;
-    cursor: pointer;
+    color: #ccc; cursor: pointer;
   }
-  .star-rating input:checked ~ label {
-    color: #ffcc00;
-  }
+  .star-rating input:checked ~ label,
   .star-rating label:hover,
   .star-rating label:hover ~ label {
     color: #ffcc00;
   }
-  #reviews {
-    margin-top: 2rem;
-  }
-  .review {
+  #reviews, #userStories { margin-top: 2rem; }
+  .review, .story-entry {
     border-top: 1px solid #ddd;
     padding: 0.8rem 0;
   }
+  textarea, input[type="text"] {
+    width: 100%; padding: 0.5rem; margin-top: 0.5rem;
+  }
+  button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background: #0066cc;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  button:hover { background: #0052a3; }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>Pundu’s Story</h1>
+  <h1>Stories & Reviews</h1>
   <a href="index.html" class="back-button">Back to Home</a>
 </header>
 
@@ -101,13 +98,27 @@
       <input type="radio" id="2stars" name="rating" value="2"><label for="2stars">★</label>
       <input type="radio" id="1star" name="rating" value="1"><label for="1star">★</label>
     </div>
-    <textarea id="reviewText" rows="3" style="width:100%;margin-top:10px;" placeholder="Write your review here..." required></textarea><br>
-    <button type="submit" style="margin-top:10px;padding:10px 15px;background:#0066cc;color:white;border:none;border-radius:4px;">Submit Review</button>
+    <textarea id="reviewText" rows="3" placeholder="Write your review here..." required></textarea>
+    <button type="submit">Submit Review</button>
   </form>
 
   <div id="reviews">
     <h3>What Others Say</h3>
     <div id="reviewList"></div>
+  </div>
+
+  <hr>
+
+  <h3>Share Your Story</h3>
+  <form id="storyForm">
+    <input type="text" id="storyTitle" placeholder="Story Title" required>
+    <textarea id="storyContent" rows="5" placeholder="Write your story here..." required></textarea>
+    <button type="submit">Submit Story</button>
+  </form>
+
+  <div id="userStories">
+    <h3>Community Stories</h3>
+    <div id="storyList"></div>
   </div>
 </main>
 
@@ -116,11 +127,10 @@
 </footer>
 
 <script>
-  const form = document.getElementById('reviewForm');
-  const reviewList = document.getElementById('reviewList');
-
+  // Load from localStorage
   function loadReviews() {
     const reviews = JSON.parse(localStorage.getItem('punduReviews') || '[]');
+    const reviewList = document.getElementById('reviewList');
     reviewList.innerHTML = '';
     reviews.forEach(r => {
       const div = document.createElement('div');
@@ -129,38 +139,57 @@
       reviewList.appendChild(div);
     });
   }
+  function loadStories() {
+    const stories = JSON.parse(localStorage.getItem('userStories') || '[]');
+    const storyList = document.getElementById('storyList');
+    storyList.innerHTML = '';
+    stories.forEach(s => {
+      const div = document.createElement('div');
+      div.className = 'story-entry';
+      div.innerHTML = `<h4>${s.title}</h4><p>${s.content}</p>`;
+      storyList.appendChild(div);
+    });
+  }
 
-  form.addEventListener('submit', function(e) {
+  document.getElementById('reviewForm').addEventListener('submit', e => {
     e.preventDefault();
     const rating = document.querySelector('input[name="rating"]:checked')?.value;
     const text = document.getElementById('reviewText').value.trim();
-    if (!rating || !text) {
-      alert('Please select a star rating and write a review.');
-      return;
-    }
+    if (!rating || !text) return alert('Please select a star rating and write a review.');
     const reviews = JSON.parse(localStorage.getItem('punduReviews') || '[]');
     reviews.push({ rating: parseInt(rating), text });
     localStorage.setItem('punduReviews', JSON.stringify(reviews));
-    form.reset();
+    e.target.reset();
     loadReviews();
   });
 
+  document.getElementById('storyForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const title = document.getElementById('storyTitle').value.trim();
+    const content = document.getElementById('storyContent').value.trim();
+    if (!title || !content) return alert('Please enter a title and your story.');
+    const stories = JSON.parse(localStorage.getItem('userStories') || '[]');
+    stories.push({ title, content });
+    localStorage.setItem('userStories', JSON.stringify(stories));
+    e.target.reset();
+    loadStories();
+  });
+
   loadReviews();
+  loadStories();
 </script>
 
-<!--Start of Tawk.to Script-->
+<!-- Tawk.to Chat -->
 <script type="text/javascript">
 var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
 (function(){
 var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
 s1.async=true;
-s1.src='https://embed.tawk.to/689abb588dfb47192629b113/1j2e6nlb8';
+s1.src='https://embed.tawk.to/689ab220cb88dd19275a6fd2/1j2e4fkd4';
 s1.charset='UTF-8';
 s1.setAttribute('crossorigin','*');
 s0.parentNode.insertBefore(s1,s0);
 })();
-</script>
-<!--End of Tawk.to Script-->
 </script>
 
 </body>
